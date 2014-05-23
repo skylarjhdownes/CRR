@@ -3,10 +3,7 @@ using System.Collections;
 
 public class UnitPlayer : Unit
 {
-	float cameraRotX = 0f;
-	
-	public float cameraPitchMax = 45f;
-	
+
 	// Use this for initialization
 	public override void Start ()
 	{
@@ -31,11 +28,25 @@ public class UnitPlayer : Unit
 		
 		if (Input.GetKey(KeyCode.Space) && control.isGrounded)
 		{
-			jump = true;	
+			jumping = true;	
 		}
 		
 		running = Input.GetKey (KeyCode.LeftShift)  || Input.GetKey (KeyCode.RightShift);
-		
+
+		// abilities
+
+		// dash
+		if (Input.GetKey(KeyCode.E) && control.isGrounded)
+		{
+			dashingRight = true;
+		}
+		if (Input.GetKey(KeyCode.F) && blinkCooldown <= Time.time) //&& (Physics.OverlapSphere(transform.position += new Vector3(4f, 0, 0), 5).Length == 0))
+		{
+			blinkCooldown = Time.time + 3f;
+			blinkingRight = true;
+		}
+
 		base.Update ();
+
 	}
 }
